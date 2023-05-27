@@ -5,12 +5,12 @@ from elasticsearch import Elasticsearch
 import time
 
 # Elasticsearch configuration
-es_host = 'localhost'
+es_host = 'elasticsearch'
 es_port = 9200
 es_index = 'stations_index'
 es_scheme = 'http'
 
-parquet_dir = 'D:\ParquetDummy'
+parquet_dir = './Parque_Storage/Data'
 es = Elasticsearch(hosts=[{'host': es_host, 'port': es_port, 'scheme': es_scheme}])
 
 while True:
