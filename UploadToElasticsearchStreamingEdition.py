@@ -34,9 +34,9 @@ while True:
                 'battery_status': row['battery_status'],
                 'status_timestamp': int(row['status_timestamp']),
                 'weather': {
-                    'humidity': int(row['weather_humidity']),
-                    'temperature': int(row['weather_temperature']),
-                    'wind_speed': int(row['weather_wind_speed'])
+                    'humidity': int(row['humidity']),
+                    'temperature': int(row['temperature']),
+                    'wind_speed': int(row['wind_speed'])
                 }
             }
 
