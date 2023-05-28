@@ -15,11 +15,15 @@ es = Elasticsearch(hosts=[{'host': es_host, 'port': es_port, 'scheme': es_scheme
 
 while True:
     parquet_files = glob.glob(os.path.join(parquet_dir, '*.parquet'))
+    crc_files = glob.glob(os.path.join(parquet_dir, '*.crc'))
 
     if len(parquet_files) == 0:
         # No files found, wait for a while before checking again
         time.sleep(5)
         continue
+
+    for file in crc_files:
+        os.remove(file)
 
     for file in parquet_files:
         print("Processing file:", file)
@@ -28,10 +32,11 @@ while True:
 
         for _, row in df.iterrows():
             # Prepare document to be indexed
+            my_dict = {0: 'LOW', 1: 'MEDIUM', 2: 'HIGH'}
             document = {
                 'station_id': int(row['station_id']),
                 's_no': int(row['s_no']),
-                'battery_status': row['battery_status'],
+                'battery_status': my_dict[row['battery_status']],
                 'status_timestamp': int(row['status_timestamp']),
                 'weather': {
                     'humidity': int(row['humidity']),
